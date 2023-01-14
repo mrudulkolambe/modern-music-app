@@ -41,7 +41,7 @@ export function PlayerContextProvider({ children }) {
 		if (currentSong) {
 			setLocalStorage('currentsong', currentSong)
 			setLocalStorage('queue', queue)
-			axios(`http://localhost:5500/authtoken`, {
+			axios(`https://musify-backend.vercel.app/authtoken`, {
 				method: "POST",
 				data: { id: currentSong?.more_info?.encrypted_media_url, quality }
 			})

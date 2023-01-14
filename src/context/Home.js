@@ -10,7 +10,7 @@ export function HomeContextProvider({ children }) {
 	const [homeData, setHomeData] = useState()
 
 	useEffect(() => {
-		axios('http://localhost:5500/home', {
+		axios('https://musify-backend.vercel.app/home', {
 			method: "GET"
 		})
 			.then((res) => {

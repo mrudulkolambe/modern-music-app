@@ -18,7 +18,7 @@ export function SearchContextProvider({ children }) {
 
 	useEffect(() => {
 		if (focus) {
-			axios('http://localhost:5500/trending-search', {
+			axios('https://musify-backend.vercel.app/trending-search', {
 				method: "GET"
 			})
 				.then((res) => {
@@ -30,8 +30,8 @@ export function SearchContextProvider({ children }) {
 	useEffect(() => {
 		let unmount = false
 		if (search.length >= 1) {
-			const finalURL = `http://localhost:5500/search`;
-			const songURL = `http://localhost:5500/song`
+			const finalURL = `https://musify-backend.vercel.app/search`;
+			const songURL = `https://musify-backend.vercel.app/song`
 			axios(finalURL, {
 				method: 'POST',
 				cancelToken: source.token,

@@ -15,7 +15,7 @@ const PlaylistSearch = () => {
 		setFocus(false)
 		let unmount = false
 		if (search.length >= 1) {
-			const playlistURL = `http://localhost:5500/playlist`
+			const playlistURL = `https://musify-backend.vercel.app/playlist`
 			axios(playlistURL, {
 				method: 'POST',
 				cancelToken: source.token,
@@ -35,7 +35,7 @@ const PlaylistSearch = () => {
 	}, [search]);
 
 	const fetchData = () => {
-		axios('http://localhost:5500/playlist', {
+		axios('https://musify-backend.vercel.app/playlist', {
 			method: "POST",
 			data: { query: search, page: playlistPage }
 		})

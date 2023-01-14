@@ -25,7 +25,7 @@ const Playlist = ({ isUserPlaylist, isLikedSongs }) => {
 				setData({ ...likedSongs, id: likedSongs.uid });
 			}
 		} else {
-			axios(`http://localhost:5500/playlist/${id}`, {
+			axios(`https://musify-backend.vercel.app/playlist/${id}`, {
 				method: 'GET',
 			})
 				.then((res) => {

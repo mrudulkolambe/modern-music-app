@@ -14,7 +14,7 @@ const Album = () => {
 
 	useEffect(() => {
 		if (id) {
-			axios(`http://localhost:5500/album/${id}`, {
+			axios(`https://musify-backend.vercel.app/album/${id}`, {
 				method: 'GET',
 			})
 				.then((res) => {

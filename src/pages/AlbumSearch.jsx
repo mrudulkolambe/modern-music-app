@@ -17,7 +17,7 @@ const AlbumSearch = () => {
 		setFocus(false)
 		let unmount = false
 		if (search.length >= 1) {
-			const albumURL = `http://localhost:5500/album`
+			const albumURL = `https://musify-backend.vercel.app/album`
 			axios(albumURL, {
 				method: 'POST',
 				cancelToken: source.token,
@@ -36,7 +36,7 @@ const AlbumSearch = () => {
 	}, [search]);
 
 	const fetchData = () => {
-		axios('http://localhost:5500/album', {
+		axios('https://musify-backend.vercel.app/album', {
 			method: "POST",
 			data: { query: search, page: albumsPage }
 		})

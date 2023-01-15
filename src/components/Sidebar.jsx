@@ -55,9 +55,8 @@ const Sidebar = () => {
 			const docRef = await addDoc(collection(db, "PLAYLIST"), {
 				title: "Music",
 				image: "",
-				subtitle: "New subtitle",
+				subtitle: "My Playlist",
 				list: [],
-				list_count: 0,
 				type: "Playlist",
 				uid: user?.uid
 			})
@@ -96,9 +95,9 @@ const Sidebar = () => {
 						{
 							userPlaylists?.map((playlist) => {
 								if (location.pathname.includes(playlist.id)) {
-									return <Link key={playlist.image} to={`/u/playlist/${playlist.id}`} className="text-white text-lg justify-center px-12 flex items-center gap-4 font-semibold py-2 relative route-active"><div className='flex items-center gap-5 w-9/12'><span className='font-bold stroke-2'>{<RiPlayListFill />}</span><p>{playlist.title}</p></div></Link>
+									return <Link key={playlist.image} to={`/u/playlist/${playlist.id}`} className="text-white text-lg justify-center px-12 flex items-center gap-4 font-semibold py-2 relative route-active"><div className='flex items-center gap-5 w-9/12'><span className='font-bold stroke-2'>{<RiPlayListFill />}</span><p className='text-ellipsis whitespace-nowrap w-[90%] overflow-hidden'>{playlist.title}</p></div></Link>
 								} else {
-									return <Link key={playlist.image} to={`/u/playlist/${playlist.id}`} className="text-gray-400 text-lg justify-center px-12 flex items-center gap-4 font-semibold py-2 relative"><div className='flex items-center gap-5 w-9/12'><span className='font-bold stroke-2'>{<RiPlayListFill />}</span><p>{playlist.title}</p></div></Link>
+									return <Link key={playlist.image} to={`/u/playlist/${playlist.id}`} className="text-gray-400 text-lg justify-center px-12 flex items-center gap-4 font-semibold py-2 relative"><div className='flex items-center gap-5 w-9/12'><span className='font-bold stroke-2'>{<RiPlayListFill />}</span><p className='text-ellipsis whitespace-nowrap w-[90%] overflow-hidden'>{playlist.title}</p></div></Link>
 								}
 							})
 						}

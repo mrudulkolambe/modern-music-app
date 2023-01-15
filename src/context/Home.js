@@ -5,7 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 const HomeContext = createContext();
 
-export function HomeContextProvider({ children }) {
+export function HomeContextProvider({ children, setLoading }) {
 
 	const [homeData, setHomeData] = useState()
 
@@ -14,6 +14,7 @@ export function HomeContextProvider({ children }) {
 			method: "GET"
 		})
 			.then((res) => {
+				setLoading(false)
 				setHomeData(res.data)
 			})
 	}, []);

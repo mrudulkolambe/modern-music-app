@@ -53,9 +53,10 @@ body {
   mix-blend-mode: color-dodge;
   border-radius: 8px;
 }
-.progress-bar{
+
+.progress-bar {
   width: var(--progress-bar-width);
-} 
+}
 
 /* .glow::after {
   content: "";
@@ -153,13 +154,14 @@ body {
     opacity: 0;
     pointer-events: none;
   }
-  
+
   99% {
     opacity: 1;
     height: 24rem;
     width: 72vw;
     pointer-events: all;
   }
+
   100% {
     opacity: 1;
     height: 24rem;
@@ -168,7 +170,7 @@ body {
   }
 }
 
-.bg {
+.newbg {
   height: 100vh;
   width: 100vw;
   background: url('https://modern-music-app.vercel.app/bg.png');
@@ -178,8 +180,9 @@ body {
   background-size: cover;
   /* animation: animateBG 20s infinite; */
 }
-/* 
-.bg::after {
+
+
+.newbg::before {
   content: "";
   height: 100%;
   width: 100%;
@@ -187,8 +190,8 @@ body {
   top: 0;
   left: 0;
   z-index: 900;
-  backdrop-filter: blur(50px);
-} */
+  backdrop-filter: brightness(0.7);
+}
 
 img {
   -webkit-user-drag: none;
@@ -196,4 +199,23 @@ img {
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
+}
+
+.animateText {
+  animation: animateText 500ms forwards ease-in-out;
+  position: relative;
+  top: 300px;
+  opacity: 0;
+}
+
+@keyframes animateText {
+  0% {
+    opacity: 0;
+    top: 300px;
+  }
+
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
 }

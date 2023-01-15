@@ -13,10 +13,11 @@ const SongCard = ({ data, index, list }) => {
 	const contextMenuRef = useRef(null)
 	const [artists, setArtists] = useState("");
 	const { user, likedSongsID, likedSongs, userPlaylists } = useAuthContext();
-	const { setCurrentSong, setQueue, currentSong, formatDuration } = usePlayerContext();
+	const { setCurrentSong, setQueue, currentSong, formatDuration, queue } = usePlayerContext();
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [isLiked, setIsLiked] = useState(false);
 	const [showContextMenu, setShowContextMenu] = useState(false);
+	const [isQueued, setIsQueued] = useState(false);
 
 	useEffect(() => {
 		if (data) {
@@ -24,7 +25,7 @@ const SongCard = ({ data, index, list }) => {
 				return artist.name
 			})
 			setArtists(finalArr.join(", "));
-			setIsLiked(likedSongsID.includes(data.id));
+			setIsLiked(likedSongsID.includes(data?.id));
 			if (data?.id === currentSong?.id) {
 				setIsPlaying(true)
 			} else {
@@ -59,21 +60,39 @@ const SongCard = ({ data, index, list }) => {
 
 	const handleAddToPlayList = (docRef) => {
 		if (user) {
-			if (isLiked) {
-				let removeLikeSongArray = likedSongs?.list?.filter((song) => {
-					return song.id != data.id
-				})
-				const likedSongsRef = doc(db, "PLAYLIST", docRef);
+			const playlistRef = doc(db, "PLAYLIST", docRef);
+			setShowContextMenu(false)
+			updateDoc(playlistRef, {
+				list: arrayUnion(data),
+			})
+		}
+	}
+
+	useEffect(() => {
+		if (queue, data) {
+			let queueID = queue.map((item) => {
+				return item.id
+			})
+			setIsQueued(queueID?.includes(data?.id))
+		}
+	}, [queue, data]);
+
+	const handleQueue = () => {
+		if (data) {
+			if (!isQueued) {
+				let currentQueue = [];
+				currentQueue = queue;
+				currentQueue.push(data)
+				setQueue(currentQueue)
 				setShowContextMenu(false)
-				updateDoc(likedSongsRef, {
-					list: removeLikeSongArray
-				})
 			} else {
-				const likedSongsRef = doc(db, "PLAYLIST", docRef);
-				setShowContextMenu(false)
-				updateDoc(likedSongsRef, {
-					list: arrayUnion(data),
+				let currentQueue = [];
+				currentQueue = queue;
+				let finalArr = currentQueue?.filter((item) => {
+					return item.id !== data?.id
 				})
+				setQueue(finalArr)
+				setShowContextMenu(false)
 			}
 		}
 	}
@@ -83,7 +102,8 @@ const SongCard = ({ data, index, list }) => {
 	return (
 		<>
 			<div className='relative'>
-				<div ref={contextMenuRef} className={showContextMenu ? 'pointer-events-auto gap-2 rounded-lg h-40 absolute top-0 right-10 bg-white bg-opacity-5 text-white backdrop-blur-md z-20 w-64 flex flex-col p-3 text-center' : "hidden"}>
+				<div ref={contextMenuRef} className={showContextMenu ? 'overflow-auto pointer-events-auto gap-2 rounded-lg h-40 absolute top-0 right-10 bg-white bg-opacity-5 text-white backdrop-blur-md z-20 w-64 flex flex-col p-3 text-center' : "hidden"}>
+					<span onClick={handleQueue} className='w-full text-center font-semibold cursor-pointer bg-white bg-opacity-5 hover:bg-opacity-10 duration-150 py-1 rounded-md'>{isQueued ? "Remove from Queue" : "Add to Queue"}</span>
 					{
 						userPlaylists?.map((playlist) => {
 							return <span onClick={() => { handleAddToPlayList(`${playlist.id}`) }} className='w-full text-center font-semibold cursor-pointer bg-white bg-opacity-5 hover:bg-opacity-10 duration-150 py-1 rounded-md'>Add to {playlist?.title}</span>

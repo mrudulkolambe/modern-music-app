@@ -16,6 +16,7 @@ import { breakpoints } from '../configurations/swiper';
 const Home = () => {
 	const { homeData } = useHomeContext();
 	useEffect(() => {
+		console.log(homeData)
 		SwiperCore.use([Autoplay]);
 	}, [homeData]);
 	return (
@@ -36,7 +37,9 @@ const Home = () => {
 								breakpoints={breakpoints}
 							>
 								{
-									homeData?.new_trending?.map((data) => {
+									homeData?.new_trending?.filter((data) => {
+										return data?.type !== "song" && data?.type !== "radio_station"
+									}).map((data) => {
 										return <SwiperSlide key={data.id}><Card data={data} /></SwiperSlide>
 									})
 								}
@@ -57,7 +60,9 @@ const Home = () => {
 								breakpoints={breakpoints}
 							>
 								{
-									homeData?.new_albums?.map((data) => {
+									homeData?.new_albums?.filter((data) => {
+										return data?.type !== "song" && data?.type !== "radio_station"
+									}).map((data) => {
 										return <SwiperSlide key={data.id}><Card data={data} /></SwiperSlide>
 									})
 								}
@@ -78,7 +83,9 @@ const Home = () => {
 								breakpoints={breakpoints}
 							>
 								{
-									homeData?.charts?.map((data) => {
+									homeData?.charts?.filter((data) => {
+										return data?.type !== "song" && data?.type !== "radio_station"
+									}).map((data) => {
 										return <SwiperSlide key={data.id}><Card data={data} /></SwiperSlide>
 									})
 								}
@@ -99,7 +106,9 @@ const Home = () => {
 								breakpoints={breakpoints}
 							>
 								{
-									homeData?.top_playlists?.map((data) => {
+									homeData?.top_playlists?.filter((data) => {
+										return data?.type !== "song" && data?.type !== "radio_station"
+									}).map((data) => {
 										return <SwiperSlide key={data.id}><Card data={data} /></SwiperSlide>
 									})
 								}
@@ -120,7 +129,10 @@ const Home = () => {
 								breakpoints={breakpoints}
 							>
 								{
-									homeData?.city_mod?.map((data) => {
+									homeData?.city_mod?.filter((data) => {
+										return data?.type !== "song" && data?.type !== "radio_station"
+									}).map((data) => {
+										console.log(data?.type)
 										return <SwiperSlide key={data.id}><Card data={data} /></SwiperSlide>
 									})
 								}
@@ -141,7 +153,9 @@ const Home = () => {
 								breakpoints={breakpoints}
 							>
 								{
-									homeData?.["promo:vx:data:76"]?.map((data) => {
+									homeData?.["promo:vx:data:76"]?.filter((data) => {
+										return data?.type !== "song" && data?.type !== "radio_station"
+									}).map((data) => {
 										return <SwiperSlide key={data.id}><Card data={data} /></SwiperSlide>
 									})
 								}
@@ -162,7 +176,9 @@ const Home = () => {
 								breakpoints={breakpoints}
 							>
 								{
-									homeData?.["promo:vx:data:116"]?.map((data) => {
+									homeData?.["promo:vx:data:116"]?.filter((data) => {
+										return data?.type !== "song" && data?.type !== "radio_station"
+									}).map((data) => {
 										return <SwiperSlide key={data.id}><Card data={data} /></SwiperSlide>
 									})
 								}

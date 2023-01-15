@@ -49,7 +49,7 @@ const Player = ({ setShowQueue, showQueue, setShowFullScreen }) => {
 	}
 
 	useEffect(() => {
-		if (!location.pathname.includes("login")) setPlayState(audioPlayer.current.paused);
+		if (!location.pathname.includes("login") && !location.pathname.includes("clone") && !location.pathname.includes('unauthorized')) setPlayState(audioPlayer.current.paused);
 	}, [duration]);
 
 	const handleLike = () => {
@@ -71,9 +71,21 @@ const Player = ({ setShowQueue, showQueue, setShowFullScreen }) => {
 		}
 	}
 
+
+	function openFullscreen() {
+		var elem = document.documentElement;
+		if (elem.requestFullscreen) {
+			elem.requestFullscreen();
+		} else if (elem.webkitRequestFullscreen) {
+			elem.webkitRequestFullscreen();
+		} else if (elem.msRequestFullscreen) {
+			elem.msRequestFullscreen();
+		}
+	}
+
 	return (
 		<>
-			{!location.pathname.includes("login") && <div className='h-[16vh] bottom-0 fixed left-[20vw] w-[80vw] px-16 flex text-white backdrop-blur-md py-4 bg-white bg-opacity-[0.02]'>
+			{!location.pathname.includes("login") && !location.pathname.includes('clone') && !location.pathname.includes('unauthorized') && <div className='h-[16vh] bottom-0 fixed left-[20vw] w-[80vw] px-16 flex text-white backdrop-blur-md py-4 bg-white bg-opacity-[0.02]'>
 				<div className='w-[10%]'>
 					<img className='h-24 w-24 rounded-lg' src={currentSong?.image} alt="" />
 				</div>
@@ -97,7 +109,7 @@ const Player = ({ setShowQueue, showQueue, setShowFullScreen }) => {
 								<span className={!loopPlayer ? 'text-white text-[rgba(255,255,255,0.3)] hover:text-[rgba(255,255,255,0.7)] duration-150' : 'text-[rgba(255,255,255,0.7)'} onClick={() => { setLoopPlayer(!loopPlayer) }}><LoopIcon /></span>
 							</div>
 							<div className='h-10 flex items-center mb-3 relative cursor-pointer'>
-								<span className='text-gray-400 hover:text-white duration-150' onClick={() => { setShowFullScreen(true) }}>
+								<span className='text-gray-400 hover:text-white duration-150' onClick={() => { setShowFullScreen(true); openFullscreen() }}>
 									<BiFullscreen />
 								</span>
 							</div>

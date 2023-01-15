@@ -19,7 +19,8 @@ export function PlayerContextProvider({ children }) {
 	const setPlayerQuality = (data) => {
 		setQuality(data);
 		setLocalStorage("quality", data)
-	}
+	};
+	
 	useEffect(() => {
 		setCurrentSong(getLocalStorage('currentsong'));
 		setQueue(getLocalStorage('queue'));

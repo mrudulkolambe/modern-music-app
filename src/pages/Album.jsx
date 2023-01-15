@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Layout from '../components/Layout'
-import Queue from '../components/Queue'
 import SongCard from '../components/SongCard'
 import { usePlayerContext } from '../context/PlayerContext'
 import { setLocalStorage } from '../hooks/useLocalstorage'
@@ -33,9 +32,9 @@ const Album = () => {
 							<img className='h-48 w-48 rounded-xl absolute top-0 blur-[8px] z-0 mt-3' src={data?.image?.includes('-150x150') ? data?.image?.replace('-150x150', '-500x500') : data?.image} alt="" />
 						</div>
 						<div className='w-[80%]'>
-							<h1 className='mt-7 text-4xl font-bold text-white' dangerouslySetInnerHTML={{ __html: data?.title }}></h1>
-							<p className='mt-4 capitalize text-xl text-white' dangerouslySetInnerHTML={{ __html: `${data?.type} - ${data?.subtitle}` }}></p>
-							<p className='text-white'>Songs: {data?.list?.length}</p>
+							<h1 className='mt-7 text-4xl font-bold text-white' dangerouslySetInnerHTML={{ __html: data?.title?.length < 30 ? data?.title : `${data?.title.slice(0, 30)}...` || "Loading..." }}></h1>
+							<p className='mt-4 capitalize text-xl text-white' dangerouslySetInnerHTML={{ __html: data?.subtitle ? `${data?.type} - ${data?.subtitle}` : "Loading..." }}></p>
+							<p className='text-white'>Songs: {data?.list?.length || "Loading..."}</p>
 							<button onClick={() => { handleSongPlayWithQueue(data?.list.map((item, listIndex) => { return { ...item, index: listIndex } })) }} className='outline-none px-3 py-2 bg-white text-white rounded-lg bg-opacity-10 hover:bg-opacity-[0.15] duration-150 font-bold w-[120px] mt-4'>Play</button>
 						</div>
 					</div>

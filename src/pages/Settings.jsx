@@ -24,7 +24,6 @@ const Settings = () => {
 				finalDevices = devices.filter((device) => {
 					return device.kind === "audiooutput" && device.deviceId !== "communications" && device.deviceId !== "default"
 				});
-				console.log(finalDevices)
 				setDevices(finalDevices)
 			});
 	}, []);

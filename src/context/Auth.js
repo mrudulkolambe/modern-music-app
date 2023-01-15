@@ -7,7 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 const AuthContext = createContext();
 
-export function AuthContextProvider({ children }) {
+export function AuthContextProvider({ children, setLoading }) {
 
 	const [user, setUser] = useState();
 	const [userPlaylists, setUserPlaylists] = useState([]);
@@ -29,9 +29,10 @@ export function AuthContextProvider({ children }) {
 		if (user) {
 			const unsub = onSnapshot(doc(db, "Liked-songs", user?.uid), (doc) => {
 				setLikedSongs(doc.data());
-				setLikedSongsID(doc.data()?.list.map((song) => {
+				let likedSongsIDTemp = doc.data()?.list.map((song) => {
 					return song.id
-				}))
+				})
+				setLikedSongsID(likedSongsIDTemp || [])
 			});
 
 			const q = query(collection(db, "PLAYLIST"), where("uid", "==", user?.uid));

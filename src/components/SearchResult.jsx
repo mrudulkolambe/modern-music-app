@@ -19,7 +19,9 @@ const SearchResult = () => {
 						</div>
 						<div className='grid grid-cols-4 gap-3 '>
 							{
-								placeholderSearchData?.map((data, index) => {
+								placeholderSearchData?.filter((data) => {
+									return data?.type !== "song"
+								})?.map((data, index) => {
 									return <SearchCard key={data?.id + index} data={data} />
 								})
 							}

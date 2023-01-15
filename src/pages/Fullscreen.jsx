@@ -11,17 +11,21 @@ import { BiExitFullscreen } from 'react-icons/bi'
 const Fullscreen = ({ setShowFullScreen, fullscreen }) => {
 	const { likedSongsID, likedSongs, user } = useAuthContext()
 	const { currentSong, songData, formatDuration, queue, setCurrentSong, loopPlayer, setLoopPlayer, duration, playState, handlePrevious, handleNext } = usePlayerContext()
-	const location = useLocation()
-	// useEffect(() => {
-	// 	effect
-	// 	return () => {
-	// 		cleanup
-	// 	};
-	// }, [input]);
+
+
+	function closeFullscreen() {
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
+	}
 	return (
 		<>
-			<div className={fullscreen ? 'px-20 h-screen w-screen fixed top-0 left-0 z-[1000] bg flex flex-col justify-end py-10 opacity-100 duration-75' : 'pointer-events-none px-20 h-screen w-screen fixed top-0 left-0 z-[1000] bg flex flex-col justify-end py-10 opacity-0 duration-75'} >
-				<div className={fullscreen ? 'opacity-100 duration-1000 h-[50%] flex w-full items-end' : 'opacity-0 duration-1000 h-[50%] flex w-full items-end'}>
+			<div className={fullscreen ? 'px-20 h-screen w-screen fixed top-0 left-0 z-[1000] newbg flex flex-col justify-end py-10 opacity-100 duration-75' : 'pointer-events-none px-20 h-screen w-screen fixed top-0 left-0 z-[1000] newbg flex flex-col justify-end py-10 opacity-0 duration-75'} >
+				<div className={fullscreen ? 'z-[2000] opacity-100 duration-1000 h-[50%] flex w-full items-end' : 'z-[2000] opacity-0 duration-1000 h-[50%] flex w-full items-end'}>
 					<div className='flex w-[380px] items-end h-full relative'>
 						<img className='h-[350px] select-none rounded-xl absolute z-[100]' src={currentSong?.image?.replace('-150x150', '-500x500')} alt="" />
 						<img className='h-[350px] scale-105 rounded-xl absolute blur-lg opacity-40 z-0' src={currentSong?.image?.replace('-150x150', '-500x500')} alt="" />
@@ -31,7 +35,7 @@ const Fullscreen = ({ setShowFullScreen, fullscreen }) => {
 						<h1 className='font-semibold text-gray-300' dangerouslySetInnerHTML={{ __html: currentSong?.subtitle.length < 55 ? currentSong?.subtitle : `${currentSong?.subtitle?.slice(0, 55)}...` }}></h1>
 					</div>
 				</div>
-				<div className={fullscreen ? 'opacity-100 duration-1000 py-3 h-[20%] mt-10' : 'opacity-0 duration-1000 py-3 h-[20%] mt-10'}>
+				<div className={fullscreen ? 'z-[2000] opacity-100 duration-1000 py-3 h-[20%] mt-10' : 'z-[2000] opacity-0 duration-1000 py-3 h-[20%] mt-10'}>
 					<div className=''>
 						<div className='items-center grid grid-cols-12 h-10 w-full bg-white rounded-lg bg-opacity-10'>
 							<span className='col-span-1 text-center text-white text-sm'>{duration?.currentTime}</span>
@@ -47,7 +51,7 @@ const Fullscreen = ({ setShowFullScreen, fullscreen }) => {
 								<div className='text-white'>{playState ? <div onClick={() => { document.getElementById('audioplayer').play() }}><PlayIcon /></div> : <div onClick={() => { document.getElementById('audioplayer').pause() }}><PauseIcon /></div>}</div>
 								<div onClick={handleNext}><NextIcon /></div>
 							</div>
-							<span className='text-gray-400 cursor-pointer hover:text-white duration-150 text-2xl' onClick={() => { setShowFullScreen(false) }}><BiExitFullscreen /></span>
+							<span className='text-gray-400 cursor-pointer hover:text-white duration-150 text-2xl' onClick={() => { setShowFullScreen(false); closeFullscreen() }}><BiExitFullscreen /></span>
 						</div>
 					</div>
 				</div>

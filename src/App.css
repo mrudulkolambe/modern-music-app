@@ -171,7 +171,7 @@ body {
 .bg {
   height: 100vh;
   width: 100vw;
-  background: url('http://localhost:3000/bg.png');
+  background: url('https://modern-music-app.vercel.app/bg.png');
   position: fixed;
   background-position: 0, 0;
   background-repeat: no-repeat;

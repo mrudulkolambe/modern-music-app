@@ -70,7 +70,7 @@ const SongCard = ({ data, index, list }) => {
 
 	useEffect(() => {
 		if (queue, data) {
-			let queueID = queue.map((item) => {
+			let queueID = queue?.map((item) => {
 				return item.id
 			})
 			setIsQueued(queueID?.includes(data?.id))

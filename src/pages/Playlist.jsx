@@ -31,17 +31,20 @@ const Playlist = ({ isUserPlaylist, isLikedSongs }) => {
 	}
 
 	useEffect(() => {
-		if (isUserPlaylist && user) {
+		if (isUserPlaylist) {
 			const unsub = onSnapshot(doc(db, "PLAYLIST", id), (doc) => {
-				console.log(doc.data().uid === user?.uid)
-				if (doc?.data().uid === user?.uid) {
-					setData({ ...doc.data(), id });
-					setPlaylistData({
-						title: doc.data().title,
-						subtitle: doc.data().subtitle
-					})
+				if (user) {
+					if (doc?.data().uid === user?.uid) {
+						setData({ ...doc.data(), id });
+						setPlaylistData({
+							title: doc.data().title,
+							subtitle: doc.data().subtitle
+						})
+					} else {
+						navigate("/unauthorized")
+					}
 				} else {
-					navigate("/unauthorized")
+					navigate('/unauthorized')
 				}
 			});
 		} else if (isLikedSongs) {

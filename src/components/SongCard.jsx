@@ -106,7 +106,7 @@ const SongCard = ({ data, index, list }) => {
 					<span onClick={handleQueue} className='w-full text-center font-semibold cursor-pointer bg-white bg-opacity-5 hover:bg-opacity-10 duration-150 py-1 rounded-md'>{isQueued ? "Remove from Queue" : "Add to Queue"}</span>
 					{
 						userPlaylists?.map((playlist) => {
-							return <span onClick={() => { handleAddToPlayList(`${playlist.id}`) }} className='w-full text-center font-semibold cursor-pointer bg-white bg-opacity-5 hover:bg-opacity-10 duration-150 py-1 rounded-md'>Add to {playlist?.title}</span>
+							return <span onClick={() => { handleAddToPlayList(`${playlist?.id}`) }} className='w-full text-center font-semibold cursor-pointer bg-white bg-opacity-5 hover:bg-opacity-10 duration-150 py-1 rounded-md'>Add to {playlist?.title}</span>
 						})
 					}
 				</div>
@@ -118,7 +118,7 @@ const SongCard = ({ data, index, list }) => {
 							<h3 onClick={handleSetCurrentSong} className={isPlaying ? 'max-w-[50%] cursor-pointer text-lg font-bold text-[#00ff33] w-[50%] whitespace-nowrap text-ellipsis overflow-hidden' : 'max-w-[50%] cursor-pointer text-lg font-bold text-white w-[50%] whitespace-nowrap text-ellipsis overflow-hidden'} dangerouslySetInnerHTML={{ __html: data?.title?.slice(0, 38) }}></h3>
 							<span className='max-w-[60%] cursor-pointer text-xs font-normal text-gray-300 flex gap-x-1 w-[60%] whitespace-nowrap text-ellipsis overflow-hidden' dangerouslySetInnerHTML={{ __html: artists.length < 40 ? `${artists.slice(0, 40)}` : `${artists.slice(0, 40)}...` }}></span>
 						</div>
-						<Link to={`/album/${data?.more_info.album_id}`} className='font-light text-sm w-[40%] text-ellipsis whitespace-nowrap overflow-hidden hover:underline underline-offset-2 cursor-pointer' dangerouslySetInnerHTML={{ __html: data?.more_info?.album }}></Link>
+						<Link to={`/album/${data?.more_info?.album_id}`} className='font-light text-sm w-[40%] text-ellipsis whitespace-nowrap overflow-hidden hover:underline underline-offset-2 cursor-pointer' dangerouslySetInnerHTML={{ __html: data?.more_info?.album }}></Link>
 					</span>
 					<div className='w-[23%] grid grid-cols-3 justify-items-center items-center'>
 						<span className='text-sm font-bold text-gray-300'>{formatDuration(data?.more_info?.duration)}</span>
